@@ -17,6 +17,7 @@
 #         return cls.objects.all()
 
 
+# 5. HttpResponseRedirect(reverse('index'))    url(, name='')    不然报错
 
 
 # 在choices字段中  指定get_status_display  无参数的方法进行调用  不写（）

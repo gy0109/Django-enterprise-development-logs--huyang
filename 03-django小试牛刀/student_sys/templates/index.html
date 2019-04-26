@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学员管理系统</title>
+</head>
+<body>
+  <ul>
+      {% for student in students %}
+
+        <li>{{student.name}} - {{student.get_status_display }}</li>
+
+      {% endfor %}
+
+
+  </ul>
+</body>
+</html>

@@ -28,36 +28,6 @@ response_params = [
 response = '\r\n'.join(response_params)
 
 
-def handle_connection_single(conn, addr):
-    request = b''
-    while EOL1 not in request and EOL2 not in request:
-        # 接收对方发送过来的请求
-        request += conn.recv(1024)
-
-    # 给对方发送我们的响应信息
-    conn.send(response.encode('utf-8'))
-    conn.close()
-
-
-def main_single():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)    # 端口复用
-    server_socket.bind(('127.0.0.1', 8000))                                # 绑定端口号
-    server_socket.listen(5)                                                # 设置监听  将主动套接字变为被动套接字
-    print('http://127.0.0.1:8000')
-    try:
-        while True:
-            # 等待传入连接。返回一个新的套接字
-            # 表示连接和客户端的地址。
-            # 对于IP套接字，地址信息是一对(hostaddr, port)。
-            conn, address = server_socket.accept()
-            # 客户端发送信息回来之后  才会继续往下面走
-            handle_connection_single(conn, address)               # 用新的套接字进行连接  收发消息
-
-    finally:
-        server_socket.close()
-
-
 # 多线程版本
 def handle_connection_any_thread(conn, addr):
     request = b''
@@ -91,6 +61,8 @@ def main_any_thread():
                 # 表示连接和客户端的地址。
                 # 对于IP套接字，地址信息是一对(hostaddr, port)。
                 conn, address = server_socket.accept()
+
+            # 没有连接可以使用。
             except socket.error as e:
                 if e.args[0] != errno.EAGAIN:      # 11
                     raise

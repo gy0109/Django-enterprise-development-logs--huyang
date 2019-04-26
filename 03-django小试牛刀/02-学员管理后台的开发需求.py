@@ -10,6 +10,15 @@
 
 # 3.提交数据Form表单
 
+# 4. 优化数据逻辑
+# students = Student.get_all()           # 配合model中的get_all模块可以将获取数据逻辑封装到model层
+# @classmethod
+#     def get_all(cls):
+#         return cls.objects.all()
+
+
+
+
 # 在choices字段中  指定get_status_display  无参数的方法进行调用  不写（）
 #
 

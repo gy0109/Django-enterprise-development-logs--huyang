@@ -12,7 +12,8 @@ from .forms import StudentForm
 
 
 def index(request):
-    students = Student.objects.all()
+    # students = Student.objects.all()
+    students = Student.get_all()           # 配合model中的get_all模块可以将获取数据逻辑封装到model层
     tem = get_template('index.html')
 
     if request.method == 'POST':

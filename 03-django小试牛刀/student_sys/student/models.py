@@ -30,3 +30,8 @@ class Student(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = '学员信息'     # 进入后台时页面显示信息
+
+    # 数据获取逻辑封装到model里面
+    @classmethod
+    def get_all(cls):
+        return cls.objects.all()

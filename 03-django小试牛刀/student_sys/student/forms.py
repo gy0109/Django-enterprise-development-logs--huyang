@@ -27,16 +27,17 @@ from .models import Student
 
 class StudentForm(forms.ModelForm):
 
-    def clean_qq(self):
-        # 把qq更改类型
-        clean_data = self.cleaned_data['qq']
-        if not clean_data.isdight():                        # 设置格式验证，可以使re
-            raise forms.ValidationError('必须全部是数字！')
-
-        return int(clean_data)
+    # def clean_qq(self):
+    #     # 把qq更改类型
+    #     clean_data = self.cleaned_data['qq']
+    #     if not clean_data.isdight():                        # 设置格式验证，可以使re
+    #         raise forms.ValidationError('必须全部是数字！')
+    #
+    #     return int(clean_data)
 
     class Meta:
         model = Student
-        fields = {
+        fields = (
             'name', 'sex', 'profession', 'email', 'qq', 'phone'
-        }
+        )
+

@@ -16,7 +16,9 @@ from django.utils.deprecation import MiddlewareMixin
 
 
 class TimeMiddleware(MiddlewareMixin):
-    def process_request(self, reqeust):return
+    def process_request(self, reqeust):
+        self.start_time = time.time()
+        return
 
     def process_view(self, reqeust, func, *args, **kwargs):
         if reqeust.path != reverse('index'):
@@ -32,7 +34,10 @@ class TimeMiddleware(MiddlewareMixin):
 
     def process_template_response(self, reqeust, response): return response
 
-    def process_response(self, reqeust, response): return response
+    def process_response(self, reqeust, response):
+        costed = time.time() - self.start_time
+        print('request to response cose: {:.2fs}'.format(costed))
+        return response
 
 
 

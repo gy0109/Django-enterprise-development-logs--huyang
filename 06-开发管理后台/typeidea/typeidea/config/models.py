@@ -20,7 +20,7 @@ class SiderBar(models.Model):
     display_type = models.PositiveIntegerField(default=1, choices=SIDE_TYPE, verbose_name='展示类型')
     content = models.CharField(max_length=500, blank=True, verbose_name='内容', help_text='如果设置的不是HTML类型，可为空')
     status = models.PositiveIntegerField(default=STATUS_SHOW, choices=STATUS_ITEMS, verbose_name='状态')
-    owner = models.ForeignKey(User, on_delete=True, verbose_name='作者')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
     class Meta:
@@ -39,7 +39,7 @@ class Link(models.Model):
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     weight = models.PositiveIntegerField(default=1, choices=zip(range(1, 6), range(1, 6)), verbose_name='权重', help_text='权重高展示顺序靠前')
-    owner = models.ForeignKey(User, on_delete=True, verbose_name='作者')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
 
     class Meta:
         verbose_name = verbose_name_plural = '友链'

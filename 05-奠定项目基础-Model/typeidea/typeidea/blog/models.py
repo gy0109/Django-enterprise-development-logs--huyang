@@ -47,3 +47,34 @@ class Post(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']
+
+
+"""
+常用字段介绍：
+1.数值型：
+PositiveIntegerField
+BooleanField
+DecimalField
+AutoField
+SmallIntegerField
+
+
+2.关系型：
+ManyToManyField
+ForeignKey
+OneToOneField
+
+3.日期型：
+DateTimeField
+DateField
+TimeField
+
+4. 字符型：
+CharField
+TextField
+ImageField
+FileField
+UUIDField
+EmailField
+URLField
+"""

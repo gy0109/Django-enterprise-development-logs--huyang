@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5_xn93*0ok*v_ng6&81zt)o_=v)71q1!tf^r^fp&&ae&dshw@b'
+SECRET_KEY = 'n&q0(m+-&$85ab5n(&2e%^#ef0jk^ic04u)$rbdl#!1zx_5+kn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,15 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'blog',
+    'comment',
+    'config',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -75,30 +76,30 @@ WSGI_APPLICATION = 'typeidea.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'student',
-#        'USER': 'root',
-#        'PASSWORD': 'gy0109',
-#        'HOST': '127.0.0.1',
-#        'PORT': '3306',
-#
-#        'TEST': {
-#            'CHARSET': 'utf8',            #
-#            # 'COLLATION': 'utf8_general_ci',
-#           'NAME': 'mytextdatabase',      # 配置单元测试的的数据库
-#        },
-#        # 'CHARSET': 'utf8'
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'typeidea',
+       'USER': 'root',
+       'PASSWORD': 'gy0109',
+       'HOST': '127.0.0.1',
+       'PORT': '3306',
+
+       'TEST': {
+           'CHARSET': 'utf8',            #
+           # 'COLLATION': 'utf8_general_ci',
+           'NAME': 'mytextdatabase',      # 配置单元测试的的数据库
+       },
+       # 'CHARSET': 'utf8'
+    }
+}
 
 
 # Password validation
@@ -138,10 +139,3 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-
-
-
-
-

@@ -40,5 +40,11 @@
 #     'NAME': 'mytextdatabase',  # 配置单元测试的的数据库
 # }
 
+# 9，单元测试的初步实现
+
+
+#
+# 10， # sex_show()    可以更换为  get_sex_display  仅针对于choices的字段
+        # self.assertEqual(student.sex_show(), '男', '性别字段内容与展示不一样')
 
 

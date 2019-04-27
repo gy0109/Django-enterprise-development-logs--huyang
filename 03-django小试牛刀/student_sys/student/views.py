@@ -18,6 +18,7 @@ def index(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
+            # 管理器
             # cleaned_data = form.cleaned_data
             # student = Student()
             # student.name = cleaned_data['name']

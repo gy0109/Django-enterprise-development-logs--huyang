@@ -34,9 +34,10 @@ class StudentTestCase(TestCase):
             phone='13748379823'
         )
 
+        # sex_show()    可以更换为  get_sex_display  仅针对于choices的字段
         self.assertEqual(student.sex_show(), '男', '性别字段内容与展示不一样')
 
-    def test_file(self):
+    def test_filter(self):
         Student.objects.create(
             name='刘清爽',
             sex=2,

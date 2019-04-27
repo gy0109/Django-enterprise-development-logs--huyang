@@ -11,7 +11,7 @@ from django.utils.deprecation import MiddlewareMixin
         process_response        处理视图函数之前          返回None或者HTTPResponse对象
         
         
-        中间键的读取顺序是  自上而下的    执行顺序是从下网上的 
+        中间键的读取顺序是  自上而下的    执行顺序是从下往上的 
 """
 
 
@@ -27,7 +27,7 @@ class TimeMiddleware(MiddlewareMixin):
         start = time.time()
         response = func(reqeust)
         costed = time.time() - start
-        print('process view : {:.2fs}'.format(costed))
+        print('process view : {:.2f}s'.format(costed))
         return response
 
     def process_exception(self, reqeust): pass   # 只用发生异常才会调用
@@ -36,7 +36,7 @@ class TimeMiddleware(MiddlewareMixin):
 
     def process_response(self, reqeust, response):
         costed = time.time() - self.start_time
-        print('request to response cose: {:.2fs}'.format(costed))
+        print('request to response cose: {:.2f}s'.format(costed))
         return response
 
 

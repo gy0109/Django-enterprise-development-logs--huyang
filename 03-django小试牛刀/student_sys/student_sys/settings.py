@@ -92,7 +92,10 @@ DATABASES = {
        'USER': 'root',
        'PASSWORD': 'gy0109',
        'HOST': '127.0.0.1',
-       'PORT': '3306'
+       'PORT': '3306',
+       'TEST': {
+           'NAME': 'mytextdatabase',      # 配置单元测试的的数据库
+       }
     }
 }
 

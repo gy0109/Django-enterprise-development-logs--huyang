@@ -27,21 +27,20 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'status', 'created_time', 'operator')
+    list_display = ('title', 'category', 'status', 'created_time', 'operator')   # 配置列表页面显示什么字段
     fields = (('title', 'category'),
               'status', 'descripition', 'content', 'tag')
-    list_display_links = []
-    list_filter = ['category']
-    search_fields = ['title', 'category__name']
-    actions_on_bottom = True
-    actions_on_top = True
-    save_on_top = True
+    list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
+    list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页
+    search_fields = ['title', 'category__name']   # 配置搜索字段
+    actions_on_bottom = True    # 是否展示在页面底部
+    actions_on_top = True       # 是否展示在顶部
+    save_on_top = True          # 保存  编辑 编辑并新建
 
     def operator(self, obj):
-        return format_html('<a href="{}">编辑</a>',
-        reverse('admin.blog_post_change', args=(obj.id,)))
+        return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))
 
-    operator.short_description = '操作'
+    operator.short_description = '操作'    # 指定表头的展示文案
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user

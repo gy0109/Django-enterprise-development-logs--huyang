@@ -81,12 +81,14 @@ class PostAdmin(admin.ModelAdmin):
     actions_on_bottom = True    # 是否展示在页面底部
     actions_on_top = True       # 是否展示在顶部
     save_on_top = True          # 保存  编辑 编辑并新建
+
     # exclude = ['owner']         # 字段不展示
 
     # filter_horizontal = ('tags', )     # 横向展示的字段
     # filter_vertical = ('tags', )       # 纵向展示的字段
 
     def operator(self, obj):
+        #
         return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))
 
     operator.short_description = '操作'    # 指定表头的展示文案
@@ -98,6 +100,13 @@ class PostAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(PostAdmin, self).get_queryset(request)
         return qs.filter(owner=request.user)
+
+    class Media:   # 自定义静态文件   若果是项目有的可以直接写项目绝对路径
+        css = {
+            'all': {'https://csn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css'}
+        }
+
+        js = ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js')
 
 
 admin.site.register(Tag, TagAdmin)

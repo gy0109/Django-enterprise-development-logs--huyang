@@ -1,7 +1,9 @@
 from django.conf.urls import url
 
-urlpatterns = [
+from . import views
 
+urlpatterns = [
+    url(r'^links/$', views.links)
 ]
 
 

@@ -25,9 +25,17 @@ class Category(models.Model):
 
     @classmethod
     def get_navs(cls):
-        categories = cls.objects.filter(status=Post.STATUS_NORMAL)
-        nav_categories = categories.filter(is_nav=True)
-        normal_categories = categories.filter(is_nav=False)
+        categories = cls.objects.filter(status=cls.STATUS_NORMAL)
+        # nav_categories = categories.filter(is_nav=True)    # 这个方法会产生两次数据库取数据
+        # normal_categories = categories.filter(is_nav=False)
+        nav_categories = []
+        normal_categories = []
+        for cate in categories:     # 间数据取出来之后   在  内存中  进行其他的操作
+            if cate.is_nav:
+                nav_categories.append(cate)
+            else:
+                normal_categories.append(cate)
+
         return {
             'navs': nav_categories,
             'categories': normal_categories,

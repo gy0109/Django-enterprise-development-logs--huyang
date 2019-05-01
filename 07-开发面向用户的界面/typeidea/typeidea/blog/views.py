@@ -4,6 +4,7 @@ from django.template.loader import get_template
 
 # Create your views here.
 from .models import Post, Tag, Category
+from config.models import SiderBar
 
 
 def post_list(request, category_id=None, tag_id=None):
@@ -20,7 +21,16 @@ def post_list(request, category_id=None, tag_id=None):
     else:
         post_list = Post.latest_posts()
 
-    return HttpResponse(tem.render(locals()))
+    context = {
+        'post_list': post_list,
+        'category': category,
+        'tag': tag,
+        'sidebars': SiderBar.get_all(),
+    }
+
+    context.update(Category.get_navs())
+    return render(request, 'list.html', context=context)
+    # return HttpResponse(tem.render(locals()))
 
 
 def post_detail(request, post_id=None):
@@ -30,5 +40,10 @@ def post_detail(request, post_id=None):
         post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
         post = None
-    return HttpResponse(tem.render(locals()))
 
+    context = {
+        'post':post
+    }
+    context.update(Category.get_navs())
+    # return HttpResponse(tem.render(locals().update(Category.get_navs())))
+    return render(request, 'detail.html', context=context)

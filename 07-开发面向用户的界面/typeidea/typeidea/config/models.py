@@ -4,8 +4,8 @@ from django.db import models
 
 # Create your models here.
 class SiderBar(models.Model):
-    # STATUS_SHOW = 1
-    # STATUS_HIDE = 0
+    STATUS_SHOW = 1
+    STATUS_HIDE = 0
     STATUS_ITEMS = [
         (1, '展示'),
         (0, '隐藏'),
@@ -28,6 +28,10 @@ class SiderBar(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_all(cls):
+        return cls.objects.filter(status=cls.STATUS_SHOW)
 
 
 class Link(models.Model):

@@ -54,25 +54,25 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'status', 'created_time', 'operator', 'owner')   # 配置列表页面显示什么字段
     fields = (('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
               'status', 'descripition', 'content', 'tag')
-    fieldsets = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
-        ('基础配置', {
-            'descripition': '基础配置描述',
-            'fields': (
-                ('title', 'category'),
-                'stauts',
-            ),
-        }),
-        ('内容', {
-            'fields': (
-                'desc'
-                'content',
-            ),
-        }),
-        ('额外信息', {
-            'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
-            'fields': ('tag',)
-        }),
-    )
+    # fieldsets = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
+    #     ('基础配置', {
+    #         'descripition': '基础配置描述',
+    #         'fields': (
+    #             ('title', 'category'),
+    #             'status',
+    #         ),
+    #     }),
+    #     ('内容', {
+    #         'fields': (
+    #             # 'desc',
+    #             'content',
+    #         ),
+    #     }),
+    #     ('额外信息', {
+    #         'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
+    #         'fields': ('tag',)
+    #     }),
+    # )
 
     list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
     # list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页
@@ -81,10 +81,10 @@ class PostAdmin(admin.ModelAdmin):
     actions_on_bottom = True    # 是否展示在页面底部
     actions_on_top = True       # 是否展示在顶部
     save_on_top = True          # 保存  编辑 编辑并新建
-    exclude = ('owner')         # 字段不展示
+    # exclude = ['owner']         # 字段不展示
 
-    filter_horizontal = ('tags', )     # 横向展示的字段
-    filter_vertical = ('tags', )       # 纵向展示的字段
+    # filter_horizontal = ('tags', )     # 横向展示的字段
+    # filter_vertical = ('tags', )       # 纵向展示的字段
 
     def operator(self, obj):
         return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))

@@ -26,12 +26,29 @@ class CategoryAdmin(admin.ModelAdmin):
         return super(CategoryAdmin, self).save_model(request, obj, form, change)
 
 
+class CategoryOwnerFilter(admin.SimpleListFilter):
+    """自定义过滤器只显示房钱用户的分类"""
+    title = '分类过滤器'
+    parameter_name = 'owner_category'
+
+    def lookups(self, request, model_admin):
+        return Category.objects.filter(owner=request.user).values_list('id', 'name')
+
+    def queryset(self, request, queryset):
+        catagory_id = self.value()
+        if catagory_id:
+            return queryset.filter(catagory_id=self.value())
+
+        return queryset
+
+
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'status', 'created_time', 'operator')   # 配置列表页面显示什么字段
+    list_display = ('title', 'category', 'status', 'created_time', 'operator', 'owner')   # 配置列表页面显示什么字段
     fields = (('title', 'category'),
               'status', 'descripition', 'content', 'tag')
     list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
-    list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页
+    # list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页
+    list_filter = [CategoryOwnerFilter]    # 页面过滤器  展示自己定义的  不展示别人定义的
     search_fields = ['title', 'category__name']   # 配置搜索字段
     actions_on_bottom = True    # 是否展示在页面底部
     actions_on_top = True       # 是否展示在顶部
@@ -45,6 +62,22 @@ class PostAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
         return super(PostAdmin, self).save_model(request, obj, form, change)
+
+
+# class PostOwnerFilter(admin.SimpleListFilter):
+#     """自定义过滤器只显示房钱用户的分类"""
+#     title = '文章过滤器'
+#     parameter_name = 'owner_post'
+#
+#     def lookups(self, request, model_admin):
+#         return Category.objects.filter(owner=request.user).values_list('id', 'title')
+#
+#     def queryset(self, request, queryset):
+#         catagory_id = self.value()
+#         if catagory_id:
+#             return queryset.filter(catagory_id=self.value())
+#
+#         return queryset
 
 
 admin.site.register(Tag, TagAdmin)

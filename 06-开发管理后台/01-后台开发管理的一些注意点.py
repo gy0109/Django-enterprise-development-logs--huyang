@@ -11,3 +11,7 @@
 # queryset: 根据url query 的内容返回列表页数据，
 
 # 4. get_queryset() 实现自己的分类标签和文章
+
+
+5. # Form 是对用户输入以及model中要展示的数据的抽象
+    # model是展示的数据

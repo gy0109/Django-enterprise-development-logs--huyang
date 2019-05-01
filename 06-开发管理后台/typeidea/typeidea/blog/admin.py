@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 
 from .models import Tag, Category, Post
-
+from .adminforms import PostAdminForm
 # Register your models here.
 
 
@@ -52,27 +52,27 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'status', 'created_time', 'operator', 'owner')   # 配置列表页面显示什么字段
-    fields = (('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
-              'status', 'descripition', 'content', 'tag')
-    # fieldsets = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
-    #     ('基础配置', {
-    #         'descripition': '基础配置描述',
-    #         'fields': (
-    #             ('title', 'category'),
-    #             'status',
-    #         ),
-    #     }),
-    #     ('内容', {
-    #         'fields': (
-    #             # 'desc',
-    #             'content',
-    #         ),
-    #     }),
-    #     ('额外信息', {
-    #         'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
-    #         'fields': ('tag',)
-    #     }),
-    # )
+    # fields = (('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
+    #           'status', 'descripition', 'content', 'tag')
+    fieldsets = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
+        ('基础配置', {
+            # 'descripition': '基础配置描述',
+            'fields': (
+                ('title', 'category'),
+                'status',
+            ),
+        }),
+        ('内容', {
+            'fields': (
+                'descripition',
+                'content',
+            ),
+        }),
+        ('额外信息', {
+            'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
+            'fields': ('tag',)
+        }),
+    )
 
     list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
     # list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页
@@ -81,6 +81,8 @@ class PostAdmin(admin.ModelAdmin):
     actions_on_bottom = True    # 是否展示在页面底部
     actions_on_top = True       # 是否展示在顶部
     save_on_top = True          # 保存  编辑 编辑并新建
+
+    form = PostAdminForm             # 将字段修改成testare组件类型
 
     # exclude = ['owner']         # 字段不展示
 
@@ -103,7 +105,7 @@ class PostAdmin(admin.ModelAdmin):
 
     class Media:   # 自定义静态文件   若果是项目有的可以直接写项目绝对路径
         css = {
-            'all': {'https://csn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css'}
+            'all': {'https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css'}
         }
 
         js = ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js')

@@ -4,6 +4,7 @@ from django.utils.html import format_html
 
 from .models import Tag, Category, Post
 from .adminforms import PostAdminForm
+from .sites import custom_site
 # Register your models here.
 
 
@@ -23,7 +24,7 @@ class TagAdmin(admin.ModelAdmin):
 
 class PostInline(admin.TabularInline):   # stackInline样式不同
     # 伪需求 适合字段较少的model
-    fields = ('title', 'descripition')    # 指定相互关联编辑的字段
+    fields = ('title', 'descripition')    # 指定相互关联编辑的字段   标题和摘要
     extra = 1     # 控制额外的几个
     model = Post  # 指定model类型
 
@@ -100,7 +101,7 @@ class PostAdmin(admin.ModelAdmin):
 
     def operator(self, obj):
         #
-        return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))
+        return format_html('<a href="{}">编辑</a>', reverse('cus_admin:blog_post_change', args=(obj.id,)))
 
     operator.short_description = '操作'    # 指定表头的展示文案
 
@@ -120,6 +121,6 @@ class PostAdmin(admin.ModelAdmin):
         js = ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js')
 
 
-admin.site.register(Tag, TagAdmin)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Post, PostAdmin)
+admin.site.register(Tag, TagAdmin, site=custom_site)
+admin.site.register(Category, CategoryAdmin, site=custom_site)
+admin.site.register(Post, PostAdmin, site=custom_site)

@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from .sites import custom_site
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^super_admin/', admin.site.urls),
+    url(r'^admin/', custom_site.urls),
     url(r'^', include('blog.urls')),
     url(r'^', include('config.urls')),
     url(r'^', include('comment.urls')),

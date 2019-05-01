@@ -6,21 +6,13 @@ from django.utils.html import format_html
 from .models import Tag, Category, Post
 from .adminforms import PostAdminForm
 from typeidea.custom_site import custom_site
+from typeidea.base_admin import BaseOwnerAdmin
 # Register your models here.
 
 
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(BaseOwnerAdmin):
     list_display = ('name', 'status', 'created_time')
     fields = ('name', 'status')
-
-    def save_model(self, request, obj, form, change):
-        # request请求对象 obj当前要保存的对象 form form表单对象 change本次修改是更新还是第一次提交
-        obj.owner = request.user    # 用户   未登录的时候是匿名用户
-        return super(TagAdmin, self).save_model(request, obj, form, change)
-
-    def get_queryset(self, request):      # 展示自己的标签
-        qs = super(TagAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
 
 
 class PostInline(admin.TabularInline):   # stackInline样式不同
@@ -30,19 +22,11 @@ class PostInline(admin.TabularInline):   # stackInline样式不同
     model = Post  # 指定model类型
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(BaseOwnerAdmin):
     list_display = ('name', 'status', 'is_nav', 'created_time')
     fields = ('name', 'status', 'is_nav')
 
     inlines = [PostInline]      # 关联模型编辑的需求
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(CategoryAdmin, self).save_model(request, obj, form, change)
-
-    def get_queryset(self, request):   # 展示自己的分类
-        qs = super(CategoryAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
 
 
 class CategoryOwnerFilter(admin.SimpleListFilter):
@@ -61,7 +45,7 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
         return queryset
 
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(BaseOwnerAdmin):
     list_display = ('title', 'category', 'status', 'created_time', 'operator', 'owner')   # 配置列表页面显示什么字段
     # fields = (('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
     #           'status', 'descripition', 'content', 'tag')
@@ -105,14 +89,6 @@ class PostAdmin(admin.ModelAdmin):
         return format_html('<a href="{}">编辑</a>', reverse('cus_admin:blog_post_change', args=(obj.id,)))
 
     operator.short_description = '操作'    # 指定表头的展示文案
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(PostAdmin, self).save_model(request, obj, form, change)
-
-    def get_queryset(self, request):
-        qs = super(PostAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
 
     class Media:   # 自定义静态文件   若果是项目有的可以直接写项目绝对路径
         css = {

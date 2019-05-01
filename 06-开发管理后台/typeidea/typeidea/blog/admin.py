@@ -16,6 +16,10 @@ class TagAdmin(admin.ModelAdmin):
         obj.owner = request.user    # 用户   未登录的时候是匿名用户
         return super(TagAdmin, self).save_model(request, obj, form, change)
 
+    def get_queryset(self, request):      # 展示自己的标签
+        qs = super(TagAdmin, self).get_queryset(request)
+        return qs.filter(owner=request.user)
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'is_nav', 'created_time')
@@ -24,6 +28,10 @@ class CategoryAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
         return super(CategoryAdmin, self).save_model(request, obj, form, change)
+
+    def get_queryset(self, request):   # 展示自己的分类
+        qs = super(CategoryAdmin, self).get_queryset(request)
+        return qs.filter(owner=request.user)
 
 
 class CategoryOwnerFilter(admin.SimpleListFilter):

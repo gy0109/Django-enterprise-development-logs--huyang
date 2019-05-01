@@ -21,9 +21,18 @@ class TagAdmin(admin.ModelAdmin):
         return qs.filter(owner=request.user)
 
 
+class PostInline(admin.TabularInline):   # stackInline样式不同
+    # 伪需求 适合字段较少的model
+    fields = ('title', 'descripition')    # 指定相互关联编辑的字段
+    extra = 1     # 控制额外的几个
+    model = Post  # 指定model类型
+
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'is_nav', 'created_time')
     fields = ('name', 'status', 'is_nav')
+
+    inlines = [PostInline]      # 关联模型编辑的需求
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user

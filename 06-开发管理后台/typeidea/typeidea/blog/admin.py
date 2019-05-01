@@ -69,7 +69,7 @@ class PostAdmin(admin.ModelAdmin):
             ),
         }),
         ('额外信息', {
-            'classes': ('collapse',),
+            'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
             'fields': ('tag',)
         }),
     )
@@ -82,6 +82,9 @@ class PostAdmin(admin.ModelAdmin):
     actions_on_top = True       # 是否展示在顶部
     save_on_top = True          # 保存  编辑 编辑并新建
     exclude = ('owner')         # 字段不展示
+
+    filter_horizontal = ('tags', )     # 横向展示的字段
+    filter_vertical = ('tags', )       # 纵向展示的字段
 
     def operator(self, obj):
         return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))

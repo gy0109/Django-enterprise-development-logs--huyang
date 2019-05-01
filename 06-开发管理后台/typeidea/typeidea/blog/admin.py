@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth import get_permission_codename
 from django.urls import reverse
 from django.utils.html import format_html
 
@@ -119,6 +120,18 @@ class PostAdmin(admin.ModelAdmin):
         }
 
         js = ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js')
+
+    # PERMISSION_API = '单点登录的url'
+    #
+    # def has_add_permission(self, request):
+    #     opts = self.opts
+    #     codename = get_permission_codename('add', opts)
+    #     perm_code = '%s: %s' % (opts.app_model, codename)
+    #     resp = request.get(PERMISSION_API.format(request.user.username, perm_code))
+    #     if resp.status.code == 200:
+    #         return True
+    #     else:
+    #         return False
 
 
 admin.site.register(Tag, TagAdmin, site=custom_site)

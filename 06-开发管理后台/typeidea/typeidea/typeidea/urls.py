@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .sites import custom_site
+from typeidea.custom_site import custom_site
 
 urlpatterns = [
     url(r'^super_admin/', admin.site.urls),

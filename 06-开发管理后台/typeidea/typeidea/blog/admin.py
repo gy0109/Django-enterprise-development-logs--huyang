@@ -4,7 +4,7 @@ from django.utils.html import format_html
 
 from .models import Tag, Category, Post
 from .adminforms import PostAdminForm
-from .sites import custom_site
+from typeidea.custom_site import custom_site
 # Register your models here.
 
 

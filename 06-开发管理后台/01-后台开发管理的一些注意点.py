@@ -15,3 +15,18 @@
 
 5. # Form 是对用户输入以及model中要展示的数据的抽象
     # model是展示的数据
+
+
+# @admin.register(Category, site=custom_site)
+# class CategoryAdmin(BaseOwnerAdmin):
+#     def post_count(self, obj):
+#         return obj.post_set.count()
+#
+#     post_count.short_description = '文章数量'
+#
+#
+#
+#
+# @admin.register(LogEntry, site=custom_site)
+# class LogEntryAdmin(admin.ModelAdmin):
+#     list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']

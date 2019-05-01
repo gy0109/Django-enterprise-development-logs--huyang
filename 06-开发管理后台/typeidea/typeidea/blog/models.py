@@ -68,6 +68,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
 """
 常用字段介绍：
 1.数值型：

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from django.contrib.auth import get_permission_codename
 from django.urls import reverse
 from django.utils.html import format_html
@@ -86,7 +87,7 @@ class PostAdmin(BaseOwnerAdmin):
 
     def operator(self, obj):
         #
-        return format_html('<a href="{}">编辑</a>', reverse('cus_admin:blog_post_change', args=(obj.id,)))
+        return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))
 
     operator.short_description = '操作'    # 指定表头的展示文案
 
@@ -110,6 +111,11 @@ class PostAdmin(BaseOwnerAdmin):
     #         return False
 
 
+class LogEbtryAdmin(admin.ModelAdmin):
+    list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
+
+
 admin.site.register(Tag, TagAdmin, site=custom_site)
 admin.site.register(Category, CategoryAdmin, site=custom_site)
 admin.site.register(Post, PostAdmin, site=custom_site)
+admin.site.register(LogEntry, LogEbtryAdmin, site=custom_site)

@@ -9,3 +9,5 @@
 # title : 标题  parameter_name 是查询时url参数名字
 # lookups： 返回要展示的内容和要查询的id
 # queryset: 根据url query 的内容返回列表页数据，
+
+# 4. get_queryset() 实现自己的分类标签和文章

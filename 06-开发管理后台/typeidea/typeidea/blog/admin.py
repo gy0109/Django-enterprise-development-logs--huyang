@@ -52,8 +52,28 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'status', 'created_time', 'operator', 'owner')   # 配置列表页面显示什么字段
-    fields = (('title', 'category'),
+    fields = (('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
               'status', 'descripition', 'content', 'tag')
+    fieldsets = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
+        ('基础配置', {
+            'descripition': '基础配置描述',
+            'fields': (
+                ('title', 'category'),
+                'stauts',
+            ),
+        }),
+        ('内容', {
+            'fields': (
+                'desc'
+                'content',
+            ),
+        }),
+        ('额外信息', {
+            'classes': ('collapse',),
+            'fields': ('tag',)
+        }),
+    )
+
     list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
     # list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页
     list_filter = [CategoryOwnerFilter]    # 页面过滤器  展示自己定义的  不展示别人定义的
@@ -61,6 +81,7 @@ class PostAdmin(admin.ModelAdmin):
     actions_on_bottom = True    # 是否展示在页面底部
     actions_on_top = True       # 是否展示在顶部
     save_on_top = True          # 保存  编辑 编辑并新建
+    exclude = ('owner')         # 字段不展示
 
     def operator(self, obj):
         return format_html('<a href="{}">编辑</a>', reverse('admin:blog_post_change', args=(obj.id,)))
@@ -74,22 +95,6 @@ class PostAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(PostAdmin, self).get_queryset(request)
         return qs.filter(owner=request.user)
-
-
-# class PostOwnerFilter(admin.SimpleListFilter):
-#     """自定义过滤器只显示房钱用户的分类"""
-#     title = '文章过滤器'
-#     parameter_name = 'owner_post'
-#
-#     def lookups(self, request, model_admin):
-#         return Category.objects.filter(owner=request.user).values_list('id', 'title')
-#
-#     def queryset(self, request, queryset):
-#         catagory_id = self.value()
-#         if catagory_id:
-#             return queryset.filter(catagory_id=self.value())
-#
-#         return queryset
 
 
 admin.site.register(Tag, TagAdmin)

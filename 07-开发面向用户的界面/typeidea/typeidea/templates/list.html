@@ -2,10 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>list</title>
+    <title>typeidea博客系统</title>
 </head>
 <body>
-<h1>list</h1>
-{{ name }}
+
+{% if tag %}
+    标签页：{{ tag.name }}
+{% endif %}
+
+{% if category %}
+    标签页：{{ category.name }}
+{% endif %}
+
+
+
+<ul>
+    {% for post in post_list %}
+    <li>
+        <a href="/post/{{ post_id }}.html">{{ post.title }}</a>
+        <div>
+            <span>作者： {{ post.owner.username }}</span>
+            <span>分类： {{ post.category.name }}</span>
+        </div>
+        <p>{{ post.descripition }}</p>
+    </li>
+    {% endfor %}
+</ul>
 </body>
 </html>

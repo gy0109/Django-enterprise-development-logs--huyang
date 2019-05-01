@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^$', views.post_list),
     url(r'post/(?P<post_id>\d+).html$', views.post_detail),
     url(r'category/(?P<category_id>\d+)/$', views.post_list),
-    url(r'tag/(?P<tag>\d+)/$', views.post_list),
+    url(r'tag/(?P<tag_id>\d+)/$', views.post_list),
 ]
 
 

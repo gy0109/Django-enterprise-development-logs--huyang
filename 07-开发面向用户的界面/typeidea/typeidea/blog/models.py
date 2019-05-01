@@ -44,9 +44,9 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    # STATUS_NORMAL = 1
-    # STATUS_DELETE = 0
-    # STATUS_DRSFT = 2
+    STATUS_NORMAL = 1
+    STATUS_DELETE = 0
+    STATUS_DRSFT = 2
     STATUS_ITEMS = [
         (1, '正常'),
         (0, '删除'),

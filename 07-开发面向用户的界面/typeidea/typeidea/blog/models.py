@@ -68,6 +68,36 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    # 重构post_list视图
+    @staticmethod
+    def get_by_tag(tag_id):
+        try:
+            tag = Tag.objects.get(id=tag_id)
+        except tag.DoesNotExist:
+            tag = None
+            post_list = []
+        else:
+            post_list = tag.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner', 'category')
+
+        return post_list, tag
+
+    @staticmethod
+    def get_by_category(category_id):
+        try:
+            category = Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            category = None
+            post_list = []
+        else:
+            post_list = category.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner', 'category')
+
+        return post_list, category
+
+    @classmethod
+    def latest_posts(cls):
+        queryset = cls.objects.filter(status=Post.STATUS_NORMAL)
+
+
 
 """
 常用字段介绍：

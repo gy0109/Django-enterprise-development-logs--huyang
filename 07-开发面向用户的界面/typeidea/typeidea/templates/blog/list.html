@@ -22,6 +22,16 @@
         <p>{{ post.descripition }}</p>
     </li>
     {% endfor %}
+    {# 分页问题   #}
+    {% if page_obj %}
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+        {% endif %}
+    Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+        {% if page_obj.has_nexts %}
+            <a href="?page={{ page_obj.nexts_page_number }}">下一页</a>
+        {% endif %}
+    {% endif %}
 </ul>
 {% endblock %}
 

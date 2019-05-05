@@ -103,7 +103,7 @@ class PostDetailView(CommonViewMixin, DetailView):
     queryset = Post.latest_posts()
     template_name = 'blog/detail.html'    # 渲染数据
     context_object_name = 'post'
-    pk_url_kwarg = 'post_id'       #
+    # pk_url_kwarg = 'post_id'       # 代替pk键的键名 可以不设置  url中依然使用pk
 
 
 class IndexView(CommonViewMixin, ListView):
@@ -117,10 +117,9 @@ class IndexView(CommonViewMixin, ListView):
 # 分类详情页和标签详情页
 # queryset 的数据徐亚根据当前的分类或者标签进行分类过滤
 # 渲染到模板上的数据需要加上当前选择分类的数据
+
 class CategoryView(IndexView):
     # 分类页
-    # pk_url_kwarg = ''  #
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         category_id = self.kwargs.get('category_id')   # category_id 数据其实是从url中拿到的
@@ -152,7 +151,5 @@ class TagView(IndexView):
         tag_id = self.kwargs.get('tag')
         return queryset.filter(tag=tag_id)
 
-# class SiderBarView(CommonViewMixin, IndexView):
-    # 'sidebars': SiderBar.get_all(),
 
 

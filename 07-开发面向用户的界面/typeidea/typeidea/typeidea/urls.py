@@ -19,8 +19,8 @@ from django.contrib import admin
 from typeidea.custom_site import custom_site
 
 urlpatterns = [
-    url(r'^super_admin/', admin.site.urls),
-    url(r'^admin/', custom_site.urls),
+    url(r'^super_admin/', admin.site.urls, name='super_admin'),
+    url(r'^admin/', custom_site.urls, name='admin'),
     url(r'^', include('blog.urls')),
     url(r'^', include('config.urls')),
     url(r'^', include('comment.urls')),

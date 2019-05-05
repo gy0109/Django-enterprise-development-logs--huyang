@@ -120,7 +120,7 @@ class IndexView(CommonViewMixin, ListView):
 
 class CategoryView(IndexView):
     # 分类页
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category_id = self.kwargs.get('category_id')   # category_id 数据其实是从url中拿到的
         category = get_object_or_404(Category, pk=category_id)  # get_object_or_404 快捷方式 获取一个对象的额实例 获取到就返回实例 获取不到就返回404
@@ -137,9 +137,9 @@ class CategoryView(IndexView):
 
 class TagView(IndexView):
     # 标签页
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tag_id = self.kwargs.get('tag')
+        tag_id = self.kwargs.get('tag_id')
         tag = get_object_or_404(Tag, pk=tag_id)
         context.update({
             'tag': tag
@@ -148,8 +148,7 @@ class TagView(IndexView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        tag_id = self.kwargs.get('tag')
-        return queryset.filter(tag=tag_id)
-
+        tag_id = self.kwargs.get('tag_id')
+        return queryset.filter(tag__id=tag_id)
 
 

@@ -13,7 +13,7 @@ from .forms import StudentForm
 def index(request):
     # students = Student.objects.all()
     students = Student.get_all()           # 配合model中的get_all模块可以将获取数据逻辑封装到model层
-    tem = get_template('index.html')
+    tem = get_template('base.html')
 
     if request.method == 'POST':
         form = StudentForm(request.POST)
@@ -40,7 +40,7 @@ def index(request):
 
 
 class IndexView(View):
-    tem = get_template('index.html')
+    tem = get_template('base.html')
 
     def get_context(self):
         # students = Student.objects.all()
@@ -76,6 +76,6 @@ class IndexView(View):
         # request_context = RequestContext(request)   # 渲染模版
         # request_context.push(context)      # 推送参数到模板        # 与csrf_token 对接时出错
         #
-        # return HttpResponse(request_context, 'index.html')
+        # return HttpResponse(request_context, 'base.html')
         return HttpResponse(self.tem.render(locals()))
 

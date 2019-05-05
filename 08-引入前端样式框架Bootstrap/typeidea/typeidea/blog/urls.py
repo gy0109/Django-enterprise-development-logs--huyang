@@ -18,26 +18,7 @@ urlpatterns = [
 
     # 标签页和分类页
     url(r'category/(?P<category_id>\d+)/$', views.CategoryView.as_view(), name='category-list'),
-    url(r'tag/(?P<tag_id>\d+)/$', views.TagView.as_view(), name='tag-list'),
+    url(r'tag/(?P<tag_id>\d+)/', views.TagView.as_view(), name='tag-list')
 
-    """
-    as_view函数的处理过程：只
-    
-    做了一件事 返回了一个闭包  Django解析完成后调用
-    给view赋值， reqeust, args, kwargs
-    根据http方法分发请求， 
-    
-    请求完成后的逻辑：
-    1， 请求到达之后，会首先调用get_queryset方法，拿到数据源
-    2.  接着会调用get_context_data方法，拿到需要渲染的数据源
-     1， get_context_Data 首先调用get_paginate_by 拿到分页数据
-     2. 接着调用get_context_object_name 拿到渲染模板的queryset的名称，
-     3.调用paginate_queryset进行分页处理请求
-     4.拿到数据转为dictionary 并返回
-    
-    3. 调用render_to_response渲染到页面
-        1. 在render_to_response中调用get_template_names拿到模板名
-        2. 吧request, context, template_name 传递到模板中
-    """
 ]
 

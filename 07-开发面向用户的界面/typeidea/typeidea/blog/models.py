@@ -43,8 +43,8 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
-    # STATUS_NORMAL = 1
-    # STATUS_DELETE = 0
+    STATUS_NORMAL = 1
+    STATUS_DELETE = 0
     STATUS_ITEMS = [
         (1, '正常'),
         (0, '删除')
@@ -59,6 +59,16 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def get_tag(cls):
+        tags = cls.objects.filter(status=cls.STATUS_NORMAL)
+        tag_li = []
+        for tag in tags:  # 间数据取出来之后   在  内存中  进行其他的操作
+            tag_li.append(tag)
+        return {
+            'tags': tag_li,
+        }
 
 
 class Post(models.Model):
@@ -99,6 +109,7 @@ class Post(models.Model):
             tag = None
             post_list = []
         else:
+            # prefetch_related 解决多对多的形式
             post_list = tag.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner', 'category')
 
         return post_list, tag

@@ -2,11 +2,11 @@
 
 {% block title %}
     {% if tag %}
-        标签页：{{ tag.name }}
-    {% endif %}
-
-    {% if category %}
-        分类页：{{ category.name }}
+        标签列表页：{{ tag.name }}
+    {% elif category %}
+        分类列表页：{{ category.name }}
+    {% else %}
+        首页：
     {% endif %}
 {% endblock %}
 

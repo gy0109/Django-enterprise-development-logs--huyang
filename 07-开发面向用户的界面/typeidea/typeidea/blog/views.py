@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 
 # Create your views here.
 from django.views.generic import DetailView, ListView
+from django.views.generic.base import View
 
 from .models import Post, Tag, Category
 from config.models import SiderBar
@@ -46,22 +47,15 @@ TemplateView:直接用来返回指定的模板，传递变量到模板中来进�
 
 as_view函数接收请求和反回响应，
 """
-
-
-class PostListView(ListView):
-    # def get_queryset(self, tag_id=None, category_id=None):
-    #     if tag_id:
-    #         post_list, tag = Post.get_by_tag(tag_id)
-    #     elif category_id:
-    #         post_list, category = Post.get_by_category(category_id)
-    #     else:
-    #         post_list = Post.latest_posts()
-
-    queryset = Post.latest_posts()   # 只针对于文章的显示
-    paginate_by = 1  # 分页
-    # model = Post
-    context_object_name = 'post_list'
-    template_name = 'blog/list.html'
+#
+#
+# class PostListView(ListView):
+#     首页
+#     queryset = Post.latest_posts()   # 只针对于文章的显示
+#     paginate_by = 1  # 分页
+#     # model = Post
+#     context_object_name = 'post_list'
+#     template_name = 'blog/list.html'
 
 """
 queryset : 和model类似 二选一， 设定基础的数据集， model的设定没有过滤的功能，可以通过queryset= 进行过过滤
@@ -92,8 +86,73 @@ get_context_data: 获取渲染到模板的上下文，如果有新增数据的�
 #     return render(request, 'detail.html', context=context)
 
 
-class PostDetailView(DetailView):
+class CommonViewMixin:
+    # 处理通用数据
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'sidebars': SiderBar.get_all(),
+        })
+        context.update(Category.get_navs())
+        context.update(Tag.get_tag())
+        return context
+
+
+class PostDetailView(CommonViewMixin, DetailView):
     # 文章详情页面的 展示
-    model = Post
+    queryset = Post.latest_posts()
     template_name = 'blog/detail.html'    # 渲染数据
+    context_object_name = 'post'
+    pk_url_kwarg = 'post_id'       #
+
+
+class IndexView(CommonViewMixin, ListView):
+    # 首页
+    queryset = Post.latest_posts()
+    paginate_by = 2
+    center_object_name = 'post_list'
+    template_name = 'blog/list.html'
+
+
+# 分类详情页和标签详情页
+# queryset 的数据徐亚根据当前的分类或者标签进行分类过滤
+# 渲染到模板上的数据需要加上当前选择分类的数据
+class CategoryView(IndexView):
+    # 分类页
+    # pk_url_kwarg = ''  #
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs.get('category_id')   # category_id 数据其实是从url中拿到的
+        category = get_object_or_404(Category, pk=category_id)  # get_object_or_404 快捷方式 获取一个对象的额实例 获取到就返回实例 获取不到就返回404
+        context.update({
+            'category': category
+        })
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_id = self.kwargs.get('category_id')
+        return queryset.filter(category_id=category_id)
+
+
+class TagView(IndexView):
+    # 标签页
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tag_id = self.kwargs.get('tag')
+        tag = get_object_or_404(Tag, pk=tag_id)
+        context.update({
+            'tag': tag
+        })
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        tag_id = self.kwargs.get('tag')
+        return queryset.filter(tag=tag_id)
+
+# class SiderBarView(CommonViewMixin, IndexView):
+    # 'sidebars': SiderBar.get_all(),
+
 

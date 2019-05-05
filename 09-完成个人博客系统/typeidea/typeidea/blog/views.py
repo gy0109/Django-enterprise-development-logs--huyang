@@ -9,6 +9,8 @@ from django.views.generic.base import View
 
 from .models import Post, Tag, Category
 from config.models import SiderBar
+from comment.forms import CommentForm
+from comment.models import Comment
 
 
 # def post_list(request, category_id=None, tag_id=None):
@@ -105,6 +107,14 @@ class PostDetailView(CommonViewMixin, DetailView):
     template_name = 'blog/detail.html'    # 渲染数据
     context_object_name = 'post'
     # pk_url_kwarg = 'post_id'       # 代替pk键的键名 可以不设置  url中依然使用pk
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'comment_form': CommentForm,
+            'comment_list': Comment.get_by_target(self.request.path)
+        })
+        return context
 
 
 class IndexView(CommonViewMixin, ListView):

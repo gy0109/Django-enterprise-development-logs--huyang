@@ -9,7 +9,7 @@ from config.models import SiderBar
 
 def post_list(request, category_id=None, tag_id=None):
     # 标签页和分类页
-    tem = get_template('list.html')
+    # tem = get_template('list.html')
     tag = None
     category = None
 
@@ -27,7 +27,7 @@ def post_list(request, category_id=None, tag_id=None):
         'tag': tag,
         'sidebars': SiderBar.get_all(),
     }
-
+    #
     context.update(Category.get_navs())
     return render(request, 'list.html', context=context)
     # return HttpResponse(tem.render(locals()))
@@ -35,14 +35,15 @@ def post_list(request, category_id=None, tag_id=None):
 
 def post_detail(request, post_id=None):
     # 文章详情页面的 展示
-    tem = get_template('detail.html')
+    # tem = get_template('detail.html')
     try:
         post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
         post = None
 
     context = {
-        'post':post
+        'post': post,
+        'sidebars': SiderBar.get_all(),
     }
     context.update(Category.get_navs())
     # return HttpResponse(tem.render(locals().update(Category.get_navs())))

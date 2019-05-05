@@ -13,12 +13,12 @@ class SiderBar(models.Model):
         (1, '展示'),
         (0, '隐藏'),
     ]
-    SIDE_TYPE = (
-        (1, 'HTML'),
-        (2, '最新文章'),
-        (3, '最热文章'),
-        (4, '最近评论')
-    )
+    # SIDE_TYPE = (
+    #     (1, 'HTML'),
+    #     (2, '最新文章'),
+    #     (3, '最热文章'),
+    #     (4, '最近评论')
+    # )
 
     # 在model层将数据封装到HTML中，使用block在模板进行渲染
     DISPLAY_HTML = 1
@@ -26,10 +26,10 @@ class SiderBar(models.Model):
     DISPLAY_HOT = 3
     DISPLAY_COMMENT = 4
     SIDE_TYPE = (
-        ('DISPLAY_HTML', 'HTML'),
-        ('DISPLAY_LATEST', '最新文章'),
-        ('DISPLAY_HOT', '最热文章'),
-        ('DISPLAY_COMMENT', '最近评论')
+        (DISPLAY_HTML, 'HTML'),
+        (DISPLAY_LATEST, '最新文章'),
+        (DISPLAY_HOT, '最热文章'),
+        (DISPLAY_COMMENT, '最近评论')
     )
 
     title = models.CharField(max_length=50, verbose_name='标题')

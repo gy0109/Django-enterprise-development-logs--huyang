@@ -7,8 +7,8 @@ from typeidea.base_admin import BaseOwnerAdmin
 
 
 class SiderBarAdmin(BaseOwnerAdmin):
-    list_display = ('title', 'display_type', 'status', 'created_time')
-    fields = ('title', 'status')
+    list_display = ('title', 'display_type', 'status', 'created_time', 'content', 'owner')
+    fields = ('title', 'status', 'content', 'display_type')
 
 
 class LinkAdmin(BaseOwnerAdmin):

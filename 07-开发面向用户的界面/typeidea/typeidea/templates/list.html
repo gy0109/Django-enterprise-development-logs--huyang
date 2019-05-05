@@ -26,7 +26,7 @@
 <ul>
     {% for post in post_list %}
     <li>
-        <a href="/post/{{ post_id }}.html">{{ post.title }}</a>
+        <a href="/post/{{ post.id }}.html">{{ post.title }}</a>
         <div>
             <span>作者： {{ post.owner.username }}</span>
             <span>分类： {{ post.category.name }}</span>
@@ -45,7 +45,7 @@
 <div>侧边栏展示：
 {% for sidebar in sidebars %}
     <h4>{{ sidebar.title }}</h4>
-        {{ sidebar.content }}
+        {{ sidebar.content_html }}
     {% endfor %}
 </div>
 </body>

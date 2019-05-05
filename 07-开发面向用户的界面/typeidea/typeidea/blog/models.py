@@ -111,6 +111,7 @@ class Post(models.Model):
             category = None
             post_list = []
         else:
+            # select_related 一对多的情况下 可以避免产生额外的数据库查询
             post_list = category.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner', 'category')
 
         return post_list, category
@@ -119,6 +120,15 @@ class Post(models.Model):
     def latest_posts(cls):
         queryset = cls.objects.filter(status=Post.STATUS_NORMAL)
 
+    @classmethod
+    def hot_posts(cls):
+        # 最热文章
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
+
+    @classmethod
+    def new_posts(cls):
+        # 最新热文章
+        return cls.objects.filter(status=cls.STATUS_NORMAL).only('title')
 
 
 """

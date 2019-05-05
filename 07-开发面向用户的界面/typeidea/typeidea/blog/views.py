@@ -49,12 +49,19 @@ as_view函数接收请求和反回响应，
 
 
 class PostListView(ListView):
-    queryset = Post.latest_posts()
-    # paginate_by = 1           # 分页
+    # def get_queryset(self, tag_id=None, category_id=None):
+    #     if tag_id:
+    #         post_list, tag = Post.get_by_tag(tag_id)
+    #     elif category_id:
+    #         post_list, category = Post.get_by_category(category_id)
+    #     else:
+    #         post_list = Post.latest_posts()
+
+    queryset = Post.latest_posts()   # 只针对于文章的显示
+    paginate_by = 1  # 分页
     # model = Post
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
-
 
 """
 queryset : 和model类似 二选一， 设定基础的数据集， model的设定没有过滤的功能，可以通过queryset= 进行过过滤

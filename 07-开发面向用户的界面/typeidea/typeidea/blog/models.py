@@ -119,6 +119,7 @@ class Post(models.Model):
     @classmethod
     def latest_posts(cls):
         queryset = cls.objects.filter(status=Post.STATUS_NORMAL)
+        return queryset
 
     @classmethod
     def hot_posts(cls):
@@ -127,7 +128,7 @@ class Post(models.Model):
 
     @classmethod
     def new_posts(cls):
-        # 最新热文章
+        # 最新文章
         return cls.objects.filter(status=cls.STATUS_NORMAL).only('title')
 
 

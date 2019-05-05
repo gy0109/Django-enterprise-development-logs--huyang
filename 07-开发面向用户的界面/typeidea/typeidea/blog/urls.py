@@ -14,4 +14,3 @@ urlpatterns = [
     url(r'tag/(?P<tag_id>\d+)/$', views.post_list),
 ]
 
-

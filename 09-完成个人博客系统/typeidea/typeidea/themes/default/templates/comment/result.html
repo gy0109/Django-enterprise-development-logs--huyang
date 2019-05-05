@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评论结果显示页</title>
+    <style>
+        body {TEXT-ALIGN: center}
+        .result {
+            text-align: center;
+            margin: auto;
+            width: 40%;
+        }
+        .errorlist {'color': red}
+        ul li {
+            list-style-type: None;
+        }
+    </style>
+</head>
+<body>
+    <div class="result">
+        {% if result %}
+            评论成功！
+            <a href="{{ target }}">返回</a>
+            {% else %}
+            <ul class="errorlist">
+            {% for firld, msg in form.error.items %}
+                <li>{{ msg }}</li>
+            {% endfor %}
+            </ul>
+            <a href="javascript:window.history.back();">返回</a>
+        {% endif %}
+    </div>
+</body>
+</html>

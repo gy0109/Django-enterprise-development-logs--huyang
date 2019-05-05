@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Typeidea blog - by gy</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css">
+    <style>
+        .post {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container head">
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light">
+            <a href="#" class="navbar-brand">首页</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="#" class="nav-link">Python</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Django实战</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">matplotlib</a></li>
+                </ul>
+                <form class="from-inline my-2 my-lg-0">
+                    <input type="search" name="" id="" class="form-control mr-sm-2" placeholder="'Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">搜索</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <div class="jumbotron">
+        <h1 class="display-4">Typeidea</h1>
+        <p class="lead">基于Django的多人博客系统</p>
+    </div>
+    <div class="container main">
+        <div class="row">
+            <div class="col-9 post_list">
+                <div class="card post">
+                    <div class="card-body">
+                        <h5 class="cart-title"><a href="#">这里是标题</a></h5>
+                        <span class="card-link">作者： <a href="#">gy</a></span>
+                        <span class="card-link">分类： <a href="#">Python</a></span>
+                        <span class="card-link">标签：
+                            <a href="#">Python</a>
+                            <a href="#">Django</a>
+                            <a href="#">Flask</a>
+                        </span>
+                        <p class="card-text">日常练习所总结的技术点
+                            <a href="#">完整内容</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card post">
+                    <div class="card-body">
+                        <h5 class="cart-title"><a href="#">这里是标题</a></h5>
+                        <span class="card-link">作者： <a href="#">gy</a></span>
+                        <span class="card-link">分类： <a href="#">Python</a></span>
+                        <span class="card-link">标签：
+                            <a href="#">Python</a>
+                            <a href="#">Django</a>
+                            <a href="#">Flask</a>
+                        </span>
+                        <p class="card-text">日常练习所总结的技术点
+                            <a href="#">完整内容</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card post">
+                    <div class="card-body">
+                        <h5 class="cart-title"><a href="#">这里是标题</a></h5>
+                        <span class="card-link">作者： <a href="#">gy</a></span>
+                        <span class="card-link">分类： <a href="#">Python</a></span>
+                        <span class="card-link">标签：
+                            <a href="#">Python</a>
+                            <a href="#">Django</a>
+                            <a href="#">Flask</a>
+                        </span>
+                        <p class="card-text">日常练习所总结的技术点
+                            <a href="#">完整内容</a>
+                        </p>
+                    </div>
+                </div>
+                 <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+                    Page 1 of 2 .
+                 <a href="?page={{ page_obj.nexts_page_number }}">下一页</a>
+        </div>
+        <div class="col-3"></div>
+            <div class="card sidecar">
+                <div class="card-body">
+                    <h4 class="card-title">关于博主</h4>
+                    <p>网名：gy  Python工程师</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="container">
+        <hr>
+        <nav class="nav category">
+            <a href="#" class="nav-link">读书</a>
+            <a href="#" class="nav-link">产品</a>
+            <a href="#" class="nav-link">工作经历</a>
+        </nav>
+    </div>
+    <div class="container power">
+        <span class="text-muted">Power by Typeidea@gy</span>
+    </div>
+</footer>
+
+</body>
+</html>

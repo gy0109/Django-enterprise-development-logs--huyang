@@ -9,7 +9,8 @@
 
 <div>顶部分类：
 {% for cate in navs %}
-    <a href="/category/{{ cate.id }}/">{{ cate.name }}</a>
+    <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
+{#    <a href="/category/{{ cate.id }}/">{{ cate.name }}</a>#}
 {% endfor %}
 </div>
 
@@ -18,7 +19,8 @@
 
 <div>底部分类：
     {% for cate in categories %}
-        <a href="/category/{{ cate.id }}/">{{ cate.name }}</a>
+        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
+{#        <a href="/category/{{ cate.id }}/">{{ cate.name }}</a>#}
     {% endfor %}
 </div>
 

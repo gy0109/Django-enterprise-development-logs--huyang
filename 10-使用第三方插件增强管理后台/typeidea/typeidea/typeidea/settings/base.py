@@ -37,15 +37,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # xadmin
     'xadmin',
     'crispy_forms',
+    # dal authcomplete 自动补全
     'dal',
     'dal_select2',
+    # 编辑器
+    'ckeditor',
     'blog',
     'comment',
     'config',
     'comment.templatetags',
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',  # 配置代码插件
+    },
+}
 
 MIDDLEWARE = [
     'blog.middleware.user_id.UserIDMiddleware',

@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^', include('blog.urls')),
     url(r'^', include('config.urls')),
     url(r'^', include('comment.urls')),
+
+    # 搜索框自动补全
     url(r'^categoryautocomplete/$', CategoryAutoComplete.as_view(), name='categoryautocomplete'),
     url(r'^tagautocomplete/$', TagAutoComplete.as_view(), name='tagautocomplete'),
 

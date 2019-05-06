@@ -13,25 +13,12 @@ from typeidea.base_admin import BaseOwnerAdmin
 # Register your models here.
 
 
-class TagAdmin(BaseOwnerAdmin):
-    list_display = ('name', 'status', 'created_time')
-    fields = ('name', 'status')
-
-
 class PostInline:
     form_layout = (
         Container(Row('title', 'descripition'),)
     )    # 指定相互关联编辑的字段   标题和摘要
     extra = 1     # 控制额外的几个
     model = Post  # 指定model类型
-
-
-class CategoryAdmin(BaseOwnerAdmin):
-    list_display = ('name', 'status', 'is_nav', 'created_time')
-    fields = ('name', 'status', 'is_nav')
-
-    inlines = [PostInline]      # 关联模型编辑的需求
-    relfield_style = 'fk-ajax'
 
 
 class CategoryOwnerFilter(RelatedFieldListFilter):
@@ -59,7 +46,7 @@ class PostAdmin(BaseOwnerAdmin):
                  'content',
                  ),
     )
-
+    model_icon = 'fa fa-camera-retro'
     list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
     list_filter = ['category']  # 页面过滤器  需要通过哪些字段过滤列表页
     # list_filter = [CategoryOwnerFilter]    # 页面过滤器  展示自己定义的  不展示别人定义的
@@ -90,6 +77,19 @@ class PostAdmin(BaseOwnerAdmin):
     #     })
     #
     #     return media
+
+
+class CategoryAdmin(BaseOwnerAdmin):
+    list_display = ('name', 'status', 'is_nav', 'created_time')
+    fields = ('name', 'status', 'is_nav')
+
+    inlines = [PostInline]  # 关联模型编辑的需求
+    relfield_style = 'fk-ajax'
+
+
+class TagAdmin(BaseOwnerAdmin):
+    list_display = ('name', 'status', 'created_time')
+    fields = ('name', 'status')
 
 
 # class LogEbtryAdmin(admin.ModelAdmin):

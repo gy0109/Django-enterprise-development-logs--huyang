@@ -14,7 +14,9 @@
             <span>分类： {{ post.category.name }}</span>
         </div>
     <hr>
-        <p>{{ post.content }}</p>
+    {% autoescape off %}
+        <p>{{ post.content_html }}</p>
+    {% endautoescape %}
 
     {% endif %}
 

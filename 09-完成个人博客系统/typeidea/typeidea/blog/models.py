@@ -1,3 +1,4 @@
+import mistune
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -89,6 +90,9 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE,  verbose_name='作者')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
+    # 使用Markdown作为编辑器    editable不需要人为处理
+    content_html = models.TextField(verbose_name='正文HTML代码', blank=True, editable=False)
+
     # 封装侧边栏逻辑部分
     pv = models.PositiveIntegerField(default=1, verbose_name='最新文章')
     uv = models.PositiveIntegerField(default=1, verbose_name='最热文章')
@@ -99,6 +103,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.content_html = mistune.markdown(self.content)
+        super().save(*args, **kwargs)
 
     # 重构post_list视图
     @staticmethod

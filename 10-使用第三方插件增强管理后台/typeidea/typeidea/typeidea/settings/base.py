@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'dal_select2',
     # 编辑器
     'ckeditor',
+    'ckeditor_uploader',  # 加载器
     'blog',
     'comment',
     'config',
@@ -60,6 +61,10 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'codesnippet',  # 配置代码插件
     },
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'artocle_images'
 
 MIDDLEWARE = [
     'blog.middleware.user_id.UserIDMiddleware',

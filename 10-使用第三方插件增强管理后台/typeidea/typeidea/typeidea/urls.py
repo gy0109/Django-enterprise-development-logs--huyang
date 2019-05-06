@@ -13,7 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 import xadmin
 
 from typeidea.custom_site import custom_site
@@ -26,7 +28,6 @@ urlpatterns = [
     url(r'^', include('config.urls')),
     url(r'^', include('comment.urls')),
 
-
-
-
-]
+    # 富文本编辑器    图图片加载
+    url(r'^ckeditor/', include('ckeditor_uploader.urls'))
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -224,6 +224,6 @@ class AuthorView(IndexView):
     # 作者过滤
     def get_queryset(self):
         queryset = super().get_queryset()
-        author_id = self.kwargs.get('owner_id')
+        author_id = self.kwargs.get('owner.id')
         return queryset.filter(owner_id=author_id)
 

@@ -147,3 +147,6 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+XASMIN_TITLE = 'Typeidea管理后台'
+XASMIN_FOOTER_TITLE = 'power by gy.com'

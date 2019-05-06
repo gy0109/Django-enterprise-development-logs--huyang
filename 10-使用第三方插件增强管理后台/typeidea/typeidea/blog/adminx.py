@@ -3,7 +3,7 @@ from django.contrib.admin.models import LogEntry
 from django.contrib.auth import get_permission_codename
 from django.urls import reverse
 from django.utils.html import format_html
-
+from xadmin.xadmin.layout import Row, Fieldset
 from .models import Tag, Category, Post
 from .adminforms import PostAdminForm
 from typeidea.custom_site import custom_site
@@ -48,27 +48,24 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
 
 class PostAdmin(BaseOwnerAdmin):
     list_display = ('id', 'title', 'category', 'status', 'created_time', 'operator', 'owner')   # 配置列表页面显示什么字段
-    fields = ( ('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
+    fields = (('title', 'category'),       # 限定要展示的字段， 配置展示字段的顺序
               'status', 'descripition', 'content', 'tag')
-    # fieldsets = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
-    #     ('基础配置', {
-    #         # 'descripition': '基础配置描述',
-    #         'fields': (
-    #             ('title', 'category'),
-    #             'status',
-    #         ),
-    #     }),
-    #     ('内容', {
-    #         'fields': (
-    #             'descripition',
-    #             'content',
-    #         ),
-    #     }),
-    #     ('额外信息', {
-    #         'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
-    #         'fields': ('tag',)
-    #     }),
-    # )
+    form_layout = (           # 控制布局 要求的格式是两个元素的tuple的list  （当前模板的名称， 元素当前板块的描述、字段和样式配置）
+        Fieldset('基础配置',
+            Row('title', 'category'),
+                'status',
+                'tags'
+            ),
+        Fieldset('内容', (
+                'descripition',
+                'content',
+            ),
+        ),
+        Fieldset('额外信息', ({
+            'classes': ('collapse',),    # classes的作用是给要配置的模板加上一些css属性默认支持collapse和wide
+            'fields': ('tag',)
+        })),
+    )
 
     list_display_links = []  # 配置那些字段为链接（点击可进入文章详情页面）
     # list_filter = ['category']   # 页面过滤器  需要通过哪些字段过滤列表页

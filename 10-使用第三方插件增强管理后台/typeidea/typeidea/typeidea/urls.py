@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import xadmin
-
+from .autocomplete import CategoryAutoComplete, TagAutoComplete
 from typeidea.custom_site import custom_site
 
 urlpatterns = [
@@ -26,4 +26,8 @@ urlpatterns = [
     url(r'^', include('blog.urls')),
     url(r'^', include('config.urls')),
     url(r'^', include('comment.urls')),
+    url(r'^categoryautocomplete/$', CategoryAutoComplete.as_view(), name='categoryautocomplete'),
+    url(r'^tagautocomplete/$', TagAutoComplete.as_view(), name='tagautocomplete'),
+
+
 ]

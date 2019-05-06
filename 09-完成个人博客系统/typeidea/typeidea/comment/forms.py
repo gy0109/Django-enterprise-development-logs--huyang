@@ -32,7 +32,7 @@ class CommentForm(forms.ModelForm):
         widget=forms.widgets.TextInput(
             attrs={
                 'class': 'form-control',
-                'style': 'width: 60%;'
+                'style': 'width: 60%; height:10%;'
             }
         )
     )
@@ -49,10 +49,10 @@ class CommentForm(forms.ModelForm):
     )
 
     def clean_content(self):
-        context = self.cleaned_data.get('content')
-        if len(context) < 10:
+        content = self.cleaned_data.get('content')
+        if len(content) < 10:
             raise forms.ValidationError('内容长度过短')
-        return context
+        return content
 
     class Meta:
         model = Comment

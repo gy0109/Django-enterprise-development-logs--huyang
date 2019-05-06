@@ -9,9 +9,9 @@ from ckeditor.widgets import CKEditorWidget
 
 
 class PostAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=forms.Textarea, label='摘gdg要', required=False)
+    description = forms.CharField(widget=forms.TextInput, label='摘要', required=False)  # required是否必须填
     category = forms.ModelChoiceField(queryset=Category.objects.all(),
-                                      widget=autocomplete.ModelSelect2Multiple(url='caregoryautocomplete'),
+                                      widget=autocomplete.ModelSelect2Multiple(url='categoryautocomplete'),
                                       label='分类')
     tag = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),

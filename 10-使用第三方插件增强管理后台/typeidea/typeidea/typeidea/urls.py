@@ -14,9 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.contrib import admin
 import xadmin
-from .autocomplete import CategoryAutoComplete, TagAutoComplete
+
 from typeidea.custom_site import custom_site
 
 urlpatterns = [
@@ -27,9 +26,7 @@ urlpatterns = [
     url(r'^', include('config.urls')),
     url(r'^', include('comment.urls')),
 
-    # 搜索框自动补全
-    url(r'^categoryautocomplete/$', CategoryAutoComplete.as_view(), name='categoryautocomplete'),
-    url(r'^tagautocomplete/$', TagAutoComplete.as_view(), name='tagautocomplete'),
+
 
 
 ]

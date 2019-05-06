@@ -3,6 +3,8 @@ from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 from . import views
+from .autocomplete import CategoryAutoComplete, TagAutoComplete
+
 
 urlpatterns = [
     # 博客首页：  https://www.gy.com
@@ -30,5 +32,9 @@ urlpatterns = [
     # RSS和sitemap的url
     url(r'^rss|feed/', LatestPostFeed(), name='rss'),
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap()}}),
+
+    # 搜索框自动补全
+    url(r'^categoryautocomplete/$', CategoryAutoComplete.as_view(), name='categoryautocomplete'),
+    url(r'^tagautocomplete/$', TagAutoComplete.as_view(), name='tagautocomplete'),
 ]
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'comment',
     'config',
+    'comment.templatetags',
 ]
 
 MIDDLEWARE = [

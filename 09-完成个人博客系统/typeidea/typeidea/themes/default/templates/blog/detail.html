@@ -1,5 +1,7 @@
 {% extends './base.html' %}
 
+{% load comment_block %}
+
 {% block title %}
     {{ post.title }}
 {% endblock %}
@@ -19,35 +21,8 @@
 
 
 {#评论模块#}
-<hr>
-<div class="comment">
-    <form action="/comment/" class="form-group" method="post">
-        {% csrf_token %}
-
-        <input type="hidden" name="target" id="" value="{{ request.path }}">
-
-        {{ comment_form }}
-
-        <input type="submit" value="提交评论">
-    </form>
-
-{# 评论列表   #}
-    <ul class="list-group">
-        {% for comment in comment_list %}
-            <li class="list-group-item">
-            <div class="nickname">
-                <a href="{{ comment.website }}">{{ comment.nickname }}</a>
-                <span>{{ comment.created_time }}</span>
-            </div>
-            <div class="comment-content">
-                {{ comment.content }}
-            </div>
-            </li>
-        {% endfor %}
-
-    </ul>
-
-</div>
+{# 默认是没有reqeust。path对象的  所以要在进行渲染#}
+{% comment_block request.path %}
 {% endblock %}
 
 

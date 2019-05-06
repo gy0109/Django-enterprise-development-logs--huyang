@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+import xadmin
 
 from typeidea.custom_site import custom_site
 
 urlpatterns = [
     # url(r'^super_admin/', admin.site.urls, name='super_admin'),
-    url(r'^super_xadmin/', admin.site.urls, name='super_admin'),
+    url(r'^super_xadmin/', xadmin.site.urls, name='super_xadmin'),
     url(r'^admin/', custom_site.urls, name='admin'),
     url(r'^', include('blog.urls')),
     url(r'^', include('config.urls')),

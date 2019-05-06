@@ -1,4 +1,4 @@
-from django.contrib import admin
+import xadmin
 from .models import SiderBar, Link
 
 from typeidea.custom_site import custom_site
@@ -16,5 +16,5 @@ class LinkAdmin(BaseOwnerAdmin):
     fields = ('title', 'href', 'status')
 
 
-admin.site.register(SiderBar, SiderBarAdmin, site=custom_site)
-admin.site.register(Link, LinkAdmin, site=custom_site)
+xadmin.site.register(SiderBar, SiderBarAdmin, site=custom_site)
+xadmin.site.register(Link, LinkAdmin, site=custom_site)

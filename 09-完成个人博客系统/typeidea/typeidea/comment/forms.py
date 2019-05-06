@@ -27,11 +27,11 @@ class CommentForm(forms.ModelForm):
     )
 
     website = forms.CharField(
-        label='内容',
+        label='网站',
         max_length=500,
         widget=forms.widgets.TextInput(
             attrs={
-                'class': 'from-control',
+                'class': 'form-control',
                 'style': 'width: 60%;'
             }
         )
@@ -42,8 +42,8 @@ class CommentForm(forms.ModelForm):
         max_length=500,
         widget=forms.widgets.TextInput(
             attrs={
-                'class': 'from-control',
-                'style': 'width: 60%;'
+                'class': 'form-control',
+                'style': 'width: 60%; height: 30px;'
             }
         )
     )

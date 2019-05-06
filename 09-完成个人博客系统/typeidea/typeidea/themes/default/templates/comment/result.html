@@ -18,12 +18,12 @@
 </head>
 <body>
     <div class="result">
-        {% if result %}
-            评论成功！
+        {% if form %}
+            <h2>评论成功！</h2>
             <a href="{{ target }}">返回</a>
-            {% else %}
+        {% else %}
             <ul class="errorlist">
-            {% for firld, msg in form.error.items %}
+            {% for field, msg in form.error.items %}
                 <li>{{ msg }}</li>
             {% endfor %}
             </ul>

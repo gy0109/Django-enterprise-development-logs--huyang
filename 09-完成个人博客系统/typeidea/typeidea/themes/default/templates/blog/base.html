@@ -9,11 +9,34 @@
         .post {
             margin-bottom: 5px;
         }
+        .jumbotron{
+            background-color:lightskyblue;
+            background-image:url("pg1.jpg");
+            height: 200px;
+
+        }
+        .header{
+            width: 100%;
+            padding: 0.5rem 1.5rem;
+            position: absolute;
+            position: -webkit-sticky;    // 兼容 -webkit 内核的浏览器
+            top: 0;
+            left: 0;
+        }
+        #header {
+            background: saddlebrown;
+            {#filter:alpha(opacity:30);#}
+            {#opacity:1;#}
+            {#!important;#}
+        }
+        .bg-light {
+             background-color: saddlebrown !important;
+}
     </style>
 </head>
 <body>
-    <div class="container head">
-        <nav class="navbar  navbar-expand-lg navbar-light bg-light">
+    <div class=" head header" id="header">
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light" >
             <a href="#" class="navbar-brand">首页</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -23,11 +46,9 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0" action="/search/" method="GET">
-                    <div class="search">
-                    <input type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search" name="keyword" value="{{ keyword }}"></div>
+                <form class="form-inline my-2 my-lg-0" action="/search/" method="GET" >
+                    <input type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search" name="keyword" value="{{ keyword }}">
                         <button class="btn btn-outline-success" type="submit">搜索</button>
-
                 </form>
 
             </div>

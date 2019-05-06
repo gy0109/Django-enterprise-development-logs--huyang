@@ -23,9 +23,12 @@
 <div class="comment">
     <form action="/comment/" class="form-group" method="post">
         {% csrf_token %}
-        <input type="hidden" name="target" id="" value="{{ request.path }}"/>
+
+        <input type="hidden" name="target" id="" value="{{ request.path }}">
+
         {{ comment_form }}
-        <input type="submit" value="写入成功">
+
+        <input type="submit" value="提交">
     </form>
 
 {# 评论列表   #}

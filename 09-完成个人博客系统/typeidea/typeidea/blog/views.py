@@ -170,12 +170,14 @@ class SearchView(IndexView):
         context.update({
             'keyword': self.request.GET.get('keyword', '')
         })
+        return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
         keyword = self.request.GET.get('keyword')
         if not keyword:
             return queryset
+        # 返回title中或者description中包含keyword的内容
         return queryset.filter(Q(title__icontains=keyword) | Q(descripition__icontains=keyword))
 
 

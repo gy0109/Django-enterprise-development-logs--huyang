@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from .models import Post
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostDetailSerializer
 
 
 # @api_view()    # api_view 快速提供api接口  [’GET', 'POST]指定方法
@@ -26,3 +26,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.filter(status=Post.STATUS_NORMAL)
     # permission_classes = [IsAdminUser]   # 权限  写入
 
+    # retrieve实现不同接口实现不同的serializer
+    def retrieve(self, request, *args, **kwargs):
+        self.serializer_class = PostDetailSerializer
+        return super().retrieve(request, *args, **kwargs)

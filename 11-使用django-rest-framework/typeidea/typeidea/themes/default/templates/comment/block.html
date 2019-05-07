@@ -1,0 +1,32 @@
+<hr>
+<div class="comment">
+    <form action="/comment/" class="form-group" method="post">
+        {% csrf_token %}
+{#                                                        requets.path 修改 target进行渲染#}
+        <input type="hidden" name="target" id="" value="{{ target }}">
+
+        {{ comment_form }}
+
+        <input type="submit" value="提交评论">
+    </form>
+
+{# 评论列表   #}
+    <ul class="list-group">
+        {% for comment in comment_list %}
+            <li class="list-group-item">
+            <div class="nickname">
+                {#昵称下面是网站地址  也可以设为自己的网站地址  友链                #}
+                <a href="{{ comment.website }}">{{ comment.nickname }}</a>
+                <span>{{ comment.created_time }}</span>
+            </div>
+            <div class="comment-content">
+                {% autoescape off %}
+                {{ comment.content }}
+                {% endautoescape %}
+            </div>
+            </li>
+        {% endfor %}
+
+    </ul>
+
+</div>

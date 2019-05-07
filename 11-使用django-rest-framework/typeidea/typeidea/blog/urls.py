@@ -2,6 +2,8 @@ from django.conf.urls import url, include
 from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
+from rest_framework.documentation import include_docs_urls
+
 from . import views
 from .autocomplete import CategoryAutoComplete, TagAutoComplete
 from . import apis
@@ -47,7 +49,9 @@ urlpatterns = [
 
     # api/post/ 页面化输出
     #  api/post/?format=json将数据一json格式输出
-    url(r'^api/post/$', apis.PostList.as_view(), name='post_list'),
+    # url(r'^api/post/$', apis.PostList.as_view(), name='post_list'),
+    # docs工具的接口  -----------------rest-framework测试 需要安装依赖包 pip install coreapi==2.3.3
+    url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
 
     url(r'^api/', include(router.urls, ))  # namespace='api'rest_framework中有的地方并不支持recversehe recverse_acthion  所以使用router
 

@@ -18,7 +18,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True,
         slug_field='username'
     )
-    url = serializers.HyperlinkedIdentityField(view_name='api-post-detail')
+    # url = serializers.HyperlinkedIdentityField(view_name='api-post-detail')
     # created_time = serializers.DateTimeField(
     #     format="%Y%-%m-%d %H:%M:%S"
     # )
@@ -31,9 +31,9 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
         fields = ['url', 'id', 'title', 'category', 'tag', 'owner',  'created_time']
-        # extra_kwargs = {
-        #     'url': {'view_name': 'api-post-detai'}
-        # }
+        extra_kwargs = {
+            'url': {'view_name': 'api-post-detail'}
+        }
 
 
 # http://127.0.0.1:8000/api/post/11/

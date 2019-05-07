@@ -37,10 +37,13 @@ class PostAdmin(BaseOwnerAdmin):
     form_layout = (
         Fieldset('基础配置',
                  Row('title', 'category'),
-                 'status'
+                 Row('status', 'tag'),
+                 'is_md',
                  ),
         Fieldset('内容',
                  'descripition',
+                 'content_md',
+                 'content_ck',
                  'content',
                  ),
     )
@@ -72,8 +75,8 @@ class CategoryAdmin(BaseOwnerAdmin):
     fields = ('name', 'status', 'is_nav')
     model_icon = 'fa fa-bookmark'
 
-    inlines = [PostInline]  # 关联模型编辑的需求
-    relfield_style = 'fk-ajax'
+    # inlines = [PostInline]  # 关联模型编辑的需求
+    # relfield_style = 'fk-ajax'
 
 
 class TagAdmin(BaseOwnerAdmin):

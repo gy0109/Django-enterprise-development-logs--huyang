@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 编辑器
     'ckeditor',
     'ckeditor_uploader',  # 加载器
+
     'blog',
     'comment',
     'config',
@@ -171,8 +172,12 @@ STATICFILES_DIRS = [
 XASMIN_TITLE = 'Typeidea管理后台'
 XASMIN_FOOTER_TITLE = 'power by gy.com'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+CKEDITOR_JQUERY_URL ='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = 'article_images'
 
 DeFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'
+
+

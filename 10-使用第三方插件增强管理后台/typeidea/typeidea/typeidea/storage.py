@@ -5,6 +5,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from PIL import Image, ImageDraw, ImageFont
 
 
+# 图片水印
 class WatermarkStorage(FileSystemStorage):
     def save(self, name, content, max_length=None):
         if 'image' in content.content_type:

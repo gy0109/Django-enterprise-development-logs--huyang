@@ -1,9 +1,6 @@
 import xadmin
 from .models import SiderBar, Link
-
-from typeidea.custom_site import custom_site
 from typeidea.base_admin import BaseOwnerAdmin
-# Register your models here.
 
 
 class SiderBarAdmin(BaseOwnerAdmin):
@@ -16,5 +13,5 @@ class LinkAdmin(BaseOwnerAdmin):
     fields = ('title', 'href', 'status')
 
 
-xadmin.site.register(SiderBar, SiderBarAdmin, site=custom_site)
-xadmin.site.register(Link, LinkAdmin, site=custom_site)
+xadmin.site.register(SiderBar, SiderBarAdmin)
+xadmin.site.register(Link, LinkAdmin)

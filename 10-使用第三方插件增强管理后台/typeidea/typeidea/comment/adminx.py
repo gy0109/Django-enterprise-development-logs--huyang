@@ -1,14 +1,15 @@
 import xadmin
+from django.contrib import admin
+
 from .models import Comment
 from typeidea.base_admin import BaseOwnerAdmin
-from typeidea.custom_site import custom_site
 # Register your models here.
 
 
-class CommentAdmin(BaseOwnerAdmin):
+# 无需继承  不需要owner字段  并且评论作者自己不可以修改或者增加之类的
+class CommentAdmin:
     list_display = ('nickname', 'status', 'email', 'content', 'created_time')
-    fields = ('nickname', 'status')
 
 
-xadmin.site.register(Comment, site=custom_site)
+xadmin.site.register(Comment, CommentAdmin)
 

@@ -97,6 +97,9 @@ class Post(models.Model):
     pv = models.PositiveIntegerField(default=1, verbose_name='最新文章')
     uv = models.PositiveIntegerField(default=1, verbose_name='最热文章')
 
+    # ckeditor和markdown共存
+    is_md = models.BooleanField(default=False, verbose_name='markdown语法')
+
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']
@@ -105,8 +108,13 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        # 判断is_md的值  选择是Markdown编辑器还是ckeditor
+        if self.is_md:
+            self.content_html = mistune.markdown(self.content)
+        else:
+            self.content_html = self.content
+
         super().save(*args, **kwargs)
-        self.content_html = mistune.markdown(self.content)
 
     # 重构post_list视图
     @staticmethod

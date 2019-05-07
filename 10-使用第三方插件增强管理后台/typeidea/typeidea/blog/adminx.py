@@ -37,7 +37,7 @@ class PostAdmin(BaseOwnerAdmin):
     form_layout = (
         Fieldset('基础配置',
                  Row('title', 'category'),
-                 'status', 'owner'
+                 'status'
                  ),
         Fieldset('内容',
                  'descripition',
@@ -65,10 +65,6 @@ class PostAdmin(BaseOwnerAdmin):
         return format_html('<a href="{}">编辑</a>', reverse('xadmin:blog_post_change', args=(obj.id,)))
 
     operator.short_description = '操作'  # 指定表头的展示文案
-
-    def save_models(self):
-        self.new_obj.owner = self.request.user
-        super().save_models()
 
 
 class CategoryAdmin(BaseOwnerAdmin):

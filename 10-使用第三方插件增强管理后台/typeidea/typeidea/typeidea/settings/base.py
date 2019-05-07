@@ -62,9 +62,6 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-CKEDITOR_UPLOAD_PATH = 'artocle_images'
 
 MIDDLEWARE = [
     'blog.middleware.user_id.UserIDMiddleware',
@@ -173,3 +170,9 @@ STATICFILES_DIRS = [
 
 XASMIN_TITLE = 'Typeidea管理后台'
 XASMIN_FOOTER_TITLE = 'power by gy.com'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
+
+DeFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'

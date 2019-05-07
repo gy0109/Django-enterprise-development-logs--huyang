@@ -12,11 +12,12 @@ class BaseOwnerAdmin:
     list_export = ['xls', 'csv', 'xml']  # 导出的数据格式
     refresh_times = [3, 5]  # 可选以支持按多长时间(秒)刷新页面
 
-    def save_model(self):
-        self.new_obj.owner = self.request.user
-        return super().save_model()
-
     def get_list_queryset(self):  # 展示自己的标签
         request = self.request
         qs = super().get_list_queryset()
         return qs.filter(owner=request.user)
+
+    def save_models(self):
+        self.new_obj.owner = self.request.user
+        return super().save_models()
+

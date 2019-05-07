@@ -4,7 +4,7 @@ from .models import Post, Category
 
 
 # http://127.0.0.1:8000/api/post/     (?format=json)
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     category = serializers.SlugRelatedField(
         read_only=True,
         slug_field='name'
@@ -18,6 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='username'
     )
+    url = serializers.HyperlinkedIdentityField(view_name='api-post-detail')
     # created_time = serializers.DateTimeField(
     #     format="%Y%-%m-%d %H:%M:%S"
     # )
@@ -29,7 +30,10 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'category', 'tag', 'owner',  'created_time']
+        fields = ['url', 'id', 'title', 'category', 'tag', 'owner',  'created_time']
+        # extra_kwargs = {
+        #     'url': {'view_name': 'api-post-detai'}
+        # }
 
 
 # http://127.0.0.1:8000/api/post/11/

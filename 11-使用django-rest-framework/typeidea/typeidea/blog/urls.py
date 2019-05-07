@@ -12,6 +12,7 @@ from rest_framework.routers import DefaultRouter
 # base_name可以代替namespace进行reverse操作
 router = DefaultRouter()
 router.register(r'post', apis.PostViewSet, base_name='api-post')
+router.register(r'category', apis.CategoryViewSet, base_name='api-category')
 
 urlpatterns = [
     # 博客首页：  https://www.gy.com

@@ -182,3 +182,12 @@ CKEDITOR_UPLOAD_PATH = 'article_images'
 DeFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'
 
 
+# 分页
+REST_FRAMEWORK = {
+    # LimitoffsetPagination当前位置  还需要获取几条
+    # PAgeNumberpagination 当前第几页 每页多少数据
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+}
+
+

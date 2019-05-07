@@ -1,6 +1,4 @@
-from django.contrib import admin
 import xadmin
-from django.contrib.admin.models import LogEntry
 from django.urls import reverse
 from django.utils.html import format_html
 from xadmin.layout import Row, Fieldset, Container
@@ -39,7 +37,7 @@ class PostAdmin(BaseOwnerAdmin):
     form_layout = (
         Fieldset('基础配置',
                  Row('title', 'category'),
-                 'status',
+                 'status', 'owner'
                  ),
         Fieldset('内容',
                  'descripition',
@@ -68,20 +66,15 @@ class PostAdmin(BaseOwnerAdmin):
 
     operator.short_description = '操作'  # 指定表头的展示文案
 
-    # @property
-    # def media(self):  # 自定义静态文件   若果是项目有的可以直接写项目绝对路径
-    #     media = super().media
-    #     media.add_js(['https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js'])
-    #     media.add_css({
-    #         'all': ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css',),
-    #     })
-    #
-    #     return media
+    def save_models(self):
+        self.new_obj.owner = self.request.user
+        super().save_models()
 
 
 class CategoryAdmin(BaseOwnerAdmin):
     list_display = ('name', 'status', 'is_nav', 'created_time')
     fields = ('name', 'status', 'is_nav')
+    model_icon = 'fa fa-bookmark'
 
     inlines = [PostInline]  # 关联模型编辑的需求
     relfield_style = 'fk-ajax'
@@ -90,10 +83,6 @@ class CategoryAdmin(BaseOwnerAdmin):
 class TagAdmin(BaseOwnerAdmin):
     list_display = ('name', 'status', 'created_time')
     fields = ('name', 'status')
-
-
-# class LogEbtryAdmin(admin.ModelAdmin):
-#     list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
 
 
 xadmin.site.register(Tag, TagAdmin, site=custom_site)

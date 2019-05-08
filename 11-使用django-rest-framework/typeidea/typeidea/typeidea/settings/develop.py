@@ -20,4 +20,23 @@ DATABASES = {
     }
 }
 
+# debug_toolbar本地系统优化方式的配置
+INSTALLED_APPS += [
+    'debug_toolbar',
+    'debug_toolbar_line_profiler',
+]
 
+MIDDLEWARE += [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = ['127.0.0.1']
+
+# # debug_toobar本地系统优化配置--第三方包panel --火焰图
+DEBUG_TOOLBAR_PANELS = [
+    # 'djdt_flamegraph.FlamegraphPanel',   报错啊
+    'debug_toolbar_line_profiler.panel.ProfilingPanel',
+
+]
+
+#

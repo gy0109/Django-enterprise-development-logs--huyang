@@ -47,6 +47,8 @@ class SiderBar(models.Model):
 
     @classmethod
     def get_all(cls):
+        import time
+        time.sleep(3)
         return cls.objects.filter(status=cls.STATUS_SHOW)
 
     # @property

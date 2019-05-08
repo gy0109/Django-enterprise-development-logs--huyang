@@ -31,3 +31,10 @@ urlpatterns = [
     # 富文本编辑器    图图片加载
     url(r'^ckeditor/', include('ckeditor_uploader.urls'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# debug_toolbar本地系统优化方式的配置
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]+urlpatterns
